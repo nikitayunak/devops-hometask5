@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+  - name: liveness
+    image: registry.k8s.io/liveness:0.1
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 80
+        httpHeaders:
+        - name: Custom-Header
+          value: ItsAlive
+      initialDelaySeconds: 5
+      periodSeconds: 5
